@@ -34,6 +34,7 @@ public class Game : Spatial
 			{
 				GetViewport().Arvr = true;
 
+				// My VR headset values, consider modifyong this with yours ;)
 				/*
 				vendor: "T.T. International"
 				model: "3D VR Viewer Deluxe"
