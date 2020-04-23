@@ -1,0 +1,130 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://assets/icon.png" type="Texture" id=1]
+[ext_resource path="res://assets/skybox3.png" type="Texture" id=2]
+[ext_resource path="res://src/Game.cs" type="Script" id=3]
+[ext_resource path="res://src/Player.cs" type="Script" id=4]
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_texture = ExtResource( 1 )
+
+[sub_resource type="CubeMesh" id=2]
+material = SubResource( 1 )
+size = Vector3( 0.2, 0.5, 1 )
+
+[sub_resource type="CylinderMesh" id=3]
+top_radius = 0.3
+bottom_radius = 0.3
+height = 0.05
+
+[sub_resource type="Shader" id=4]
+code = "shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx;
+uniform vec4 albedo : hint_color;
+uniform sampler2D texture_albedo : hint_albedo;
+uniform float specular;
+uniform float metallic;
+uniform float roughness : hint_range(0,1);
+uniform float point_size : hint_range(0,128);
+uniform sampler2D texture_ambient_occlusion : hint_white;
+uniform vec4 ao_texture_channel;
+uniform float ao_light_affect;
+uniform vec4 transmission : hint_color;
+uniform sampler2D texture_transmission : hint_black;
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+
+void vertex() {
+	UV=UV*uv1_scale.xy+uv1_offset.xy;
+}
+
+
+
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 albedo_tex = texture(texture_albedo,base_uv);
+	albedo_tex *= COLOR;
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+	METALLIC = metallic;
+	ROUGHNESS = roughness;
+	SPECULAR = specular;
+	AO = dot(texture(texture_ambient_occlusion,base_uv),ao_texture_channel);
+	AO_LIGHT_AFFECT = ao_light_affect;
+	vec3 transmission_tex = texture(texture_transmission,base_uv).rgb;
+	TRANSMISSION = (transmission.rgb+transmission_tex);
+}
+"
+
+[sub_resource type="ShaderMaterial" id=5]
+shader = SubResource( 4 )
+shader_param/albedo = Color( 1, 1, 1, 1 )
+shader_param/specular = 0.5
+shader_param/metallic = 0.0
+shader_param/roughness = 1.0
+shader_param/point_size = 1.0
+shader_param/ao_texture_channel = Plane( 1, 0, 0, 0 )
+shader_param/ao_light_affect = 0.0
+shader_param/transmission = Color( 0, 0, 0, 1 )
+shader_param/uv1_scale = Vector3( 1, 1, 1 )
+shader_param/uv1_offset = Vector3( 0, 0, 0 )
+shader_param/uv2_scale = Vector3( 1, 1, 1 )
+shader_param/uv2_offset = Vector3( 0, 0, 0 )
+
+[sub_resource type="CylinderMesh" id=6]
+material = SubResource( 5 )
+top_radius = 0.3
+bottom_radius = 0.3
+height = 0.05
+
+[sub_resource type="PanoramaSky" id=7]
+panorama = ExtResource( 2 )
+
+[sub_resource type="Environment" id=8]
+background_mode = 2
+background_sky = SubResource( 7 )
+
+[node name="Root" type="Spatial"]
+script = ExtResource( 3 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( -0.841916, 0.0163451, -0.539361, -0.539597, -0.0318972, 0.841319, -0.00345266, 0.999358, 0.0356746, -79.3566, 61.5924, 4.71539 )
+
+[node name="Player" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 16 )
+script = ExtResource( 4 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Player"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="MeshInstance2" type="MeshInstance" parent="Player/MeshInstance"]
+transform = Transform( -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0, 1, 0, -0.3, -0.5 )
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="MeshInstance3" type="MeshInstance" parent="Player/MeshInstance"]
+transform = Transform( -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0, 1, 0, -0.3, 0.5 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="Spatial" type="Spatial" parent="Player"]
+transform = Transform( 1, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0, 1.5, 0 )
+
+[node name="ARVROrigin" type="ARVROrigin" parent="Player/Spatial"]
+
+[node name="ARVRCamera" type="ARVRCamera" parent="Player/Spatial/ARVROrigin"]
+transform = Transform( 1, 2.42144e-08, -1.16415e-08, -2.42144e-08, 1, 1.27533e-07, 1.16415e-08, -2.17115e-08, 1, 0, 0, 0 )
+keep_aspect = 0
+
+[node name="Camera" type="Camera" parent="Player"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.35, 0 )
+current = true
+far = 256.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 8 )
