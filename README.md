@@ -13,15 +13,15 @@ You'll also need the protocol description file, for google cardboard data you ca
 
 When you have protoc and this file, here are the steps to follow :
 ```bash
- $ echo <insert your base 64 encoded data here> > encoded
+$ echo <insert your base 64 encoded data here> > encoded
 ```
 This data should look something like this : `ChJULlQuIEludGVybmF0aW9uYWwSEzNEIFZSIFZpZXdlciBEZWx1eGUdJQaBPSUK1yM9KhAAAEhCAABIQgAASEIAAEhCWAE1KVwPPToICtcjPArXIzxQAWAB`
 ```
-base64 -d encoded > data
+$ base64 -d encoded > data
 ```
 This command convert the base 64 data to raw data.
 ```
-protoc --decode=DeviceParams CardboardDevice.proto < data
+$ protoc --decode=DeviceParams CardboardDevice.proto < data
 ```
 This command decode the raw data to give you the wanted values and print them.
 
