@@ -8,7 +8,7 @@ Follow this [tutorial](https://docs.godotengine.org/en/stable/getting_started/wo
 If you have a cardboard_like VR headset this game should work for it, in order to have optimal experience consider modifying the `MobileVRInterface`'s parameters in [src/Game.cs](https://github.com/Faymoon/Bike-Game/blob/master/src/Game.cs#L54).
 
 ### For cardboard compatible headset
-You have to scan your device's QR Code with a small cardboard logo in. You'll get a link with base 64 encoded data after the `p=`, to decode this data you need protoc, that you can download [here](https://github.com/protocolbuffers/protobuf/releases) (download just the protoc-<version>-*.zip if you don't need to compile it yourself). 
+You have to scan your device's QR Code with a small cardboard logo in. You'll get a link with base 64 encoded data after the `p=`, to decode this data you need protoc, that you can download [here](https://github.com/protocolbuffers/protobuf/releases) (download just the protoc-\<version\>-*.zip if you don't need to compile it yourself). 
 You'll also need the protocol description file, for google cardboard data you can find it [here](https://github.com/google/wwgc/blob/master/www/CardboardDevice.proto).
 
 When you have protoc and this file, here are the steps to follow :
