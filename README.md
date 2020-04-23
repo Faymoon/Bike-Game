@@ -25,4 +25,4 @@ $ protoc --decode=DeviceParams CardboardDevice.proto < data
 ```
 This command decode the raw data to give you the wanted values and print them.
 
-then you can change the data in the code (don't forget that units can be differents).
+Then you can change the data in the code (don't forget that units can be differents).
