@@ -19,3 +19,6 @@ This data should look something like this : `ChJULlQuIEludGVybmF0aW9uYWwSEzNEIFZ
 6. `protoc --decode=DeviceParams CardboardDevice.proto < data` This command decodes the raw data to give you the wanted values and prints them into std out.
 
 Then you can change the data in the code (don't forget that units can be differents).
+
+## GodotBluetooth
+I use a modified version of this [project](https://github.com/favarete/GodotBluetooth) which is under MIT license. I made a few changes in order to make it working with my project/Godot 3.2 and to debug. 
