@@ -16,6 +16,6 @@ If you have a cardboard-like VR headset this game should work for it, in order t
 4. `$ echo <insert your base 64 encoded data here> > encoded`
 This data should look something like this : `ChJULlQuIEludGVybmF0aW9uYWwSEzNEIFZSIFZpZXdlciBEZWx1eGUdJQaBPSUK1yM9KhAAAEhCAABIQgAASEIAAEhCWAE1KVwPPToICtcjPArXIzxQAWAB`
 5. `$ base64 -d encoded > data` This command converts the base 64 data to raw data.
-6. `protoc --decode=DeviceParams CardboardDevice.proto < data` This command decodes the raw data to give you the wanted values and prints them into the appropriate file.
+6. `protoc --decode=DeviceParams CardboardDevice.proto < data` This command decodes the raw data to give you the wanted values and prints them into std out.
 
 Then you can change the data in the code (don't forget that units can be differents).
