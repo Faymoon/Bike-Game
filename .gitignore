@@ -12,3 +12,8 @@ data_*/
 # Android ignores
 android/build/
 android/.*
+
+# Build files
+*.exe
+*.x86*
+*.pck
