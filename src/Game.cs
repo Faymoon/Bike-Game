@@ -122,9 +122,9 @@ public class Game : Spatial
 	public override void _Process(float delta)
 	{
 		var player_pos = player.Translation;
-		for (int i = (int)((player_pos.x / chunk_size) - 9); i < (int)((player_pos.x / chunk_size) + 9); ++i)
+		for (int i = (int)((player_pos.x / chunk_size) - 8); i < (int)((player_pos.x / chunk_size) + 8); ++i)
 		{
-			for (int j = (int)((player_pos.z / chunk_size) + 9); j > (int)((player_pos.z / chunk_size) - 9); --j)
+			for (int j = (int)((player_pos.z / chunk_size) + 12); j > (int)((player_pos.z / chunk_size) - 12); --j)
 			{
 				if (!chunks_cache.ContainsKey((i, j)))
 				{
