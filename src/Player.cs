@@ -43,7 +43,7 @@ public class Player : Godot.Spatial
 			{
 				curve.AddPoint(new Vector3(Translation.x, root.height.GetNoise2d(Translation.x, Translation.z - i) * 20, Translation.z - i));
 			}
-			Translation = curve.InterpolateBaked(16 * delta);
+			Translation = curve.InterpolateBaked(32 * delta);
 			LookAt(Translation + curve.InterpolateBakedUpVector(16 * delta).Rotated(Vector3.Right, -(float)Math.PI / 2), Vector3.Up);
 		}
 	}
