@@ -67,7 +67,7 @@ public class Game : Spatial
 			GetNode<Camera>("Player/Camera").Current = true;
 		}
 
-		var gen = new RandomNumberGenerator();
+		var gen = new Random();
 
 		biome = new OpenSimplexNoise();
 		biome.Seed = (int)gen.Randi();
@@ -75,7 +75,7 @@ public class Game : Spatial
 		biome.Octaves = 1;
 
 		height = new OpenSimplexNoise();
-		height.Seed = (int)gen.Randi();
+		height.Seed = gen.Next();
 		height.Period = 200;
 		height.Octaves = 2;
 		height.Persistence = 0.5f;
