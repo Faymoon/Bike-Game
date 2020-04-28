@@ -1,7 +1,8 @@
 using Godot;
 using System;
 
-public class Chunk : Spatial
+
+public class Chunk : MeshInstance
 {
 	private uint size;
 	private Vector2 position;
@@ -23,7 +24,7 @@ public class Chunk : Spatial
 		var mesh = new PlaneMesh();
 		mesh.Size = new Vector2(size, size);
 		mesh.SubdivideDepth = 3;
-		mesh.SubdivideWidth = 3;
+		mesh.SubdivideWidth = (int)position.x == 0 ? (int)size : 3;
 
 		var surface_tool = new SurfaceTool();
 		surface_tool.CreateFrom(mesh, 0);
@@ -35,7 +36,6 @@ public class Chunk : Spatial
 			var vertex = mesh_tool.GetVertex(i);
 			var height_noise_val = height_noise.GetNoise2dv(position + new Vector2(vertex.x, vertex.z));
 			vertex.y = height_noise_val * 20;
-			mesh_tool.SetVertex(i, vertex);
 			var color_factor = (height_noise_val + 1) / 2.0f;
 			
 			if ((int)vertex.x == 0 && (int)position.x == 0)
@@ -44,14 +44,15 @@ public class Chunk : Spatial
 			}
 			else
 			{
-				mesh_tool.SetVertexColor(i, ((biome_noise.GetNoise2dv(position + new Vector2(vertex.x, vertex.z)) > 0) ? new Color(0.0f, color_factor, 0.0f) : new Color(1.0f, color_factor, 0.0f)));
+				mesh_tool.SetVertexColor(i, new Color(color_factor, color_factor, 0));
 			}
+			mesh_tool.SetVertex(i, vertex);
 		}
 
 		var child = new MeshInstance();
 		var array = new ArrayMesh();
 		mesh_tool.CommitToSurface(array);
-		child.Mesh = array;
+		Mesh = array;
 
 		if (base_shader == null && ResourceLoader.Exists("res://assets/chunk_shader.tres"))
 		{
@@ -59,7 +60,8 @@ public class Chunk : Spatial
 		}
 		var shader = base_shader;
 
-		child.MaterialOverride = shader;
+		MaterialOverride = shader;
+	}
 
 		AddChild(child);
 	}
