@@ -2,5 +2,5 @@
 
 [ext_resource path="res://src/Chunk.cs" type="Script" id=1]
 
-[node name="Chunk" type="Spatial"]
+[node name="Chunk" type="MeshInstance"]
 script = ExtResource( 1 )
