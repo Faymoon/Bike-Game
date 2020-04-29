@@ -12,7 +12,8 @@ public class Game : Spatial
 	private System.Text.StringBuilder data;
 
 	private uint chunk_size = 32;
-	private OpenSimplexNoise biome;
+	private OpenSimplexNoise hydro;
+	private OpenSimplexNoise heat;
 	public OpenSimplexNoise height;
 
 	private System.Collections.Generic.Dictionary<(int, int), Chunk> chunks = new System.Collections.Generic.Dictionary<(int, int), Chunk>() { };
@@ -69,10 +70,15 @@ public class Game : Spatial
 
 		var gen = new Random();
 
-		biome = new OpenSimplexNoise();
-		biome.Seed = (int)gen.Randi();
-		biome.Period = 120;
-		biome.Octaves = 1;
+		hydro = new OpenSimplexNoise();
+		hydro.Seed = gen.Next();
+		hydro.Period = 50;
+		hydro.Octaves = 1;
+		
+		heat = new OpenSimplexNoise();
+		heat.Seed = gen.Next();
+		heat.Period = 100;
+		heat.Octaves = 1;
 
 		height = new OpenSimplexNoise();
 		height.Seed = gen.Next();
@@ -80,7 +86,10 @@ public class Game : Spatial
 		height.Octaves = 2;
 		height.Persistence = 0.5f;
 
-		var init_pos = new Vector3(-chunk_size / 8.0f, height.GetNoise1d(16) * 10, 0);
+		//heat.GetImage(120 * (int)chunk_size, 120 * (int)chunk_size).SavePng("heat.png");
+		//hydro.GetImage(120 * (int)chunk_size, 120 * (int)chunk_size).SavePng("hydro.png");
+
+		var init_pos = new Vector3(-0.5f, height.GetNoise1d(16) * 20, 0);
 
 		player = GetNode<Player>("Player");
 		player.Translate(init_pos);
@@ -130,7 +139,7 @@ public class Game : Spatial
 				{
 					chunks.Add((i, j), new Chunk());
 					var p = new Vector2(i, j) * chunk_size;
-					chunks[(i, j)].Init(chunk_size, p, height, biome);
+					chunks[(i, j)].Init(chunk_size, p, height, hydro, heat);
 					chunks[(i, j)].Translate(new Vector3(p.x, 0, p.y));
 					AddChild(chunks[(i, j)]);
 				}
