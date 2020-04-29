@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\Chunk.cs" />
+    <Compile Include="src\UniformPoissonDiskSampler.cs" />
     <Compile Include="src\Game.cs" />
     <Compile Include="src\Player.cs" />
   </ItemGroup>
