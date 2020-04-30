@@ -99,23 +99,23 @@ public class Chunk : MeshInstance
 		
 		if (value <= -7 * (float)Math.PI / 8)
 		{
-			// major tundra minor desert
-			biome = Biome.InterpolateBiomes(Biome.TUNDRA, Biome.DESERT, 0.66f);
+			// major savannah minor desert
+			biome = Biome.InterpolateBiomes(Biome.SAVANNAH, Biome.DESERT, 0.33f);
 		}
 		else if (value <= -5 * (float)Math.PI / 8)
 		{
-			// tundra
-			biome = Biome.TUNDRA;
+			// savannah
+			biome = Biome.SAVANNAH;
 		}
 		else if (value <= -(float)Math.PI / 2)
 		{
-			// major tundra minor forest
-			biome = Biome.InterpolateBiomes(Biome.TUNDRA, Biome.FOREST, 0.66f);
+			// major savannah minor forest
+			biome = Biome.InterpolateBiomes(Biome.SAVANNAH, Biome.FOREST, 0.33f);
 		}
 		else if (value <= -3 * (float)Math.PI / 8)
 		{
-			// major forest minor tundra
-			biome = Biome.InterpolateBiomes(Biome.FOREST, Biome.TUNDRA, 0.66f);
+			// major forest minor savannah
+			biome = Biome.InterpolateBiomes(Biome.FOREST, Biome.SAVANNAH, 0.33f);
 		}
 		else if (value <= -(float)Math.PI / 8)
 		{
@@ -125,12 +125,12 @@ public class Chunk : MeshInstance
 		else if (value <= 0)
 		{
 			// major forest minor grassland
-			biome = Biome.InterpolateBiomes(Biome.FOREST, Biome.GRASSLAND, 0.66f);
+			biome = Biome.InterpolateBiomes(Biome.FOREST, Biome.GRASSLAND, 0.33f);
 		}
 		else if (value <= (float)Math.PI / 8)
 		{
 			// major grassland minor forest
-			biome = Biome.InterpolateBiomes(Biome.GRASSLAND, Biome.FOREST, 0.66f);
+			biome = Biome.InterpolateBiomes(Biome.GRASSLAND, Biome.FOREST, 0.33f);
 		}
 		else if (value <= 3 * (float)Math.PI / 8)
 		{
@@ -140,12 +140,12 @@ public class Chunk : MeshInstance
 		else if (value <= (float)Math.PI / 2)
 		{
 			// major grassland minor desert
-			biome = Biome.InterpolateBiomes(Biome.GRASSLAND, Biome.DESERT, 0.66f);
+			biome = Biome.InterpolateBiomes(Biome.GRASSLAND, Biome.DESERT, 0.33f);
 		}
 		else if (value <= 5 * (float)Math.PI / 8)
 		{
 			// major desert minor grassland
-			biome = Biome.InterpolateBiomes(Biome.DESERT, Biome.GRASSLAND, 0.66f);
+			biome = Biome.InterpolateBiomes(Biome.DESERT, Biome.GRASSLAND, 0.33f);
 		}
 		else if (value <= 7 * (float)Math.PI / 8)
 		{
@@ -154,8 +154,8 @@ public class Chunk : MeshInstance
 		}
 		else
 		{
-			// major desert minor tundra
-			biome = Biome.InterpolateBiomes(Biome.DESERT, Biome.TUNDRA, 0.66f);
+			// major desert minor savannah
+			biome = Biome.InterpolateBiomes(Biome.DESERT, Biome.SAVANNAH, 0.33f);
 		}
 
 		return biome;
