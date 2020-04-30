@@ -5,12 +5,6 @@ public class Game : Spatial
 {
 	private Godot.Object bluetooth;
 
-	private bool connected = false;
-
-	private int device_id = -1;
-
-	private System.Text.StringBuilder data;
-
 	private uint chunk_size = 32;
 	private OpenSimplexNoise hydro;
 	private OpenSimplexNoise heat;
@@ -18,8 +12,6 @@ public class Game : Spatial
 
 	private System.Collections.Generic.Dictionary<(int, int), Chunk> chunks = new System.Collections.Generic.Dictionary<(int, int), Chunk>() { };
 	private System.Collections.Generic.Dictionary<(int, int), Chunk> chunks_cache = new System.Collections.Generic.Dictionary<(int, int), Chunk>() { };
-
-	private (int, int) last_pos = (0, 0);
 
 	private Player player;
 
@@ -72,12 +64,12 @@ public class Game : Spatial
 
 		hydro = new OpenSimplexNoise();
 		hydro.Seed = gen.Next();
-		hydro.Period = 50;
+		hydro.Period = 30;
 		hydro.Octaves = 1;
 		
 		heat = new OpenSimplexNoise();
 		heat.Seed = gen.Next();
-		heat.Period = 100;
+		heat.Period = 300;
 		heat.Octaves = 1;
 
 		height = new OpenSimplexNoise();
@@ -86,6 +78,8 @@ public class Game : Spatial
 		height.Octaves = 2;
 		height.Persistence = 0.5f;
 
+
+		Chunk.Test(hydro, heat);
 		//heat.GetImage(120 * (int)chunk_size, 120 * (int)chunk_size).SavePng("heat.png");
 		//hydro.GetImage(120 * (int)chunk_size, 120 * (int)chunk_size).SavePng("hydro.png");
 
@@ -113,13 +107,16 @@ public class Game : Spatial
 
 	public void _on_connected(String deviceName, String deviceAddress)
 	{
-		connected = true;
 		GetTree().Paused = false;
+	}
+
+	public void _on_connected_error()
+	{
+		connect();
 	}
 
 	public void _on_disconnected()
 	{
-		connected = false;
 		connect();
 	}
 
