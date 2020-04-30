@@ -17,17 +17,17 @@ top_radius = 0.3
 bottom_radius = 0.3
 height = 0.05
 
-[sub_resource type="CylinderMesh" id=6]
+[sub_resource type="CylinderMesh" id=4]
 top_radius = 0.3
 bottom_radius = 0.3
 height = 0.05
 
-[sub_resource type="PanoramaSky" id=7]
+[sub_resource type="PanoramaSky" id=5]
 panorama = ExtResource( 2 )
 
-[sub_resource type="Environment" id=8]
+[sub_resource type="Environment" id=6]
 background_mode = 2
-background_sky = SubResource( 7 )
+background_sky = SubResource( 5 )
 
 [node name="Root" type="Spatial"]
 script = ExtResource( 3 )
@@ -51,7 +51,7 @@ material/0 = null
 
 [node name="MeshInstance3" type="MeshInstance" parent="Player/MeshInstance"]
 transform = Transform( -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0, 1, 0, -0.3, 0.5 )
-mesh = SubResource( 6 )
+mesh = SubResource( 4 )
 material/0 = null
 
 [node name="Spatial" type="Spatial" parent="Player"]
@@ -69,4 +69,4 @@ current = true
 far = 500.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 8 )
+environment = SubResource( 6 )
