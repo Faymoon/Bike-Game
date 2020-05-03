@@ -15,7 +15,7 @@ _global_script_class_icons={
 
 [android]
 
-modules="org/godotengine/godot/GodotBluetooth,org/godotengine/godot/GodotToast"
+modules="org/godotengine/godot/GodotBluetooth"
 
 [application]
 
